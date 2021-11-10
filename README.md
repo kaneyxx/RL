@@ -1,10 +1,11 @@
 # RL
 
-### Q-learning
+### Q-learning & Sarsa
 
 command: python main.py \--[parameters]
 
 * env : "FrozenLake", "CliffWalking", "GridWorld"
+* agent : "Q-Learning", "Sarsa"
 * episode : how many episodes you want the agent to learn
 * lr : learning rate
 * gamma : discount rate
