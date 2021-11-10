@@ -100,7 +100,7 @@ class SarsaAgent(object):
         action = np.random.choice(action_list)
         return action
 
-    # 学习方法，也就是更新Q-table的方法
+    # learning algorithm (updating Q table)
     def learn(self, obs, action, reward, next_obs, next_action, done):
         """ 
         on-policy
