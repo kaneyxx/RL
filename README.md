@@ -1,9 +1,18 @@
 # RL
 
 ### Q-learning & Sarsa
+<br/> 
 
-command: python main.py \--[parameters]
+Command: python main.py \--[parameters]
 
+
+Example:
+```python
+python main.py --env "CliffWalking" --agent "Sarsa" --episode 200 --render
+```
+<br/>  
+
+Parameters:
 * env : "FrozenLake", "CliffWalking", "GridWorld"
 * agent : "Q-Learning", "Sarsa"
 * episode : how many episodes you want the agent to learn
