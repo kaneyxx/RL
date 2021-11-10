@@ -1,5 +1,5 @@
 from env import CliffWalkingWrapper, FrozenLakeWapper, GridWorld
-from agent import QLearningAgent
+from agent import QLearningAgent, SarsaAgent
 from train import run_episode, test_episode
 import argparse
 import gym
@@ -9,6 +9,7 @@ from plot import plot
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--env', type=str, required=True, help='environment_name = FrozenLake, CliffWalking or GridWorld')
+parser.add_argument('--agent', type=str, default="Q-Learning", help='agent_name = Q-Learning, Sarsa')
 parser.add_argument('--episode', default=1000, type=int, help='episodes')
 parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
 parser.add_argument('--gamma', default=0.9, type=float, help='discount rate')
@@ -21,6 +22,7 @@ def main():
     args = parser.parse_args()
     print(args)
 
+    # make env
     if args.env == 'FrozenLake':
         envName = "FrozenLake"
         env = gym.make("FrozenLake-v1", is_slippery=False)  # 0 left, 1 down, 2 right, 3 up
@@ -42,14 +44,23 @@ def main():
         env = GridWorld(gridmap=desc2, is_slippery=False)
 
     
+    # init agent
+    if args.agent == "Q-Learning":
+        agent = QLearningAgent(
+            obs_n=env.observation_space.n,
+            act_n=env.action_space.n,
+            learning_rate=args.lr,
+            gamma=args.gamma,
+            e_greed=args.epsilon)
+    elif args.agent == "Sarsa":
+        agent = SarsaAgent(
+            obs_n=env.observation_space.n,
+            act_n=env.action_space.n,
+            learning_rate=args.lr,
+            gamma=args.gamma,
+            e_greed=args.epsilon)
 
-    agent = QLearningAgent(
-        obs_n=env.observation_space.n,
-        act_n=env.action_space.n,
-        learning_rate=args.lr,
-        gamma=args.gamma,
-        e_greed=args.epsilon)
-
+    # learning phase
     global_steps = []
     global_rewards = []
     is_render = args.render
