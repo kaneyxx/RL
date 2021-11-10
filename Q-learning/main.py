@@ -12,7 +12,7 @@ parser.add_argument('--env', type=str, required=True, help='environment_name = F
 parser.add_argument('--episode', default=1000, type=int, help='episodes')
 parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
 parser.add_argument('--gamma', default=0.9, type=float, help='discount rate')
-parser.add_argument('--epislon', default=0.1, type=float, help='epislon')
+parser.add_argument('--epsilon', default=0.1, type=float, help='epsilon')
 parser.add_argument('--slippery', default=False, type=bool, help='slippery')
 parser.add_argument('--render', default=False, action="store_true", help='render')
 
@@ -48,7 +48,7 @@ def main():
         act_n=env.action_space.n,
         learning_rate=args.lr,
         gamma=args.gamma,
-        e_greed=args.epislon)
+        e_greed=args.epsilon)
 
     global_steps = []
     global_rewards = []
