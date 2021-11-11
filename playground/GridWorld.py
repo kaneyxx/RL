@@ -83,7 +83,7 @@ def compute_state_value(in_place=True, discount=1.0, iter_count=1000):
 
     return new_state_values, iteration
 
-def main():
+def run():
     # async = in-place, sync = out-of-place
     async_values, async_iteration = compute_state_value(in_place=True)
     sync_values, sync_iteration = compute_state_value(in_place=False)
@@ -109,4 +109,4 @@ if __name__ == '__main__':
             np.array([1, 0])]
     ACTION_PROB = 0.25
 
-    main()
+    run()
