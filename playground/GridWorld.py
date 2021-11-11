@@ -28,34 +28,50 @@ def step(state, action):
     reward = -1
     return next_state, reward
 
-# drawing the results
-def draw_image(image, sync):
-    fig, ax = plt.subplots()
-    ax.set_axis_off()
-    tb = Table(ax, bbox=[0, 0, 1, 1])
+def draw_multi(async_v, sync_v):
+    fig = plt.figure(figsize=(20, 4))
+    ax_async = fig.add_subplot(121)
+    ax_sync = fig.add_subplot(122)
+    ax_async.set_axis_off()
+    ax_sync.set_axis_off()
+    ax_async.set_title("Asynchronous")
+    ax_sync.set_title("Synchronous")
 
-    nrows, ncols = image.shape
+    tb_async = Table(ax_async, bbox=[0, 0, 1, 1])
+    tb_sync = Table(ax_sync, bbox=[0, 0, 1, 1])
+    
+    nrows, ncols = sync_v.shape
     width, height = 1.0 / ncols, 1.0 / nrows
 
-    # add cells
-    for (i, j), val in np.ndenumerate(image):
-        tb.add_cell(i, j, width, height, text=val,
+    # async part
+    for (i, j), val in np.ndenumerate(async_v):
+        tb_async.add_cell(i, j, width, height, text=val,
                     loc='center', facecolor='white')
 
     # row and column labels
-    for i in range(len(image)):
-        tb.add_cell(i, -1, width, height, text=i+1, loc='right',
+    for i in range(len(async_v)):
+        tb_async.add_cell(i, -1, width, height, text=i+1, loc='right',
                     edgecolor='none', facecolor='none')
-        tb.add_cell(-1, i, width, height/2, text=i+1, loc='center',
+        tb_async.add_cell(-1, i, width, height/2, text=i+1, loc='center',
                     edgecolor='none', facecolor='none')
-    ax.add_table(tb)
+    ax_async.add_table(tb_async)
 
-    if sync:
-        fig_name = "sync"
-    else:
-        fig_name = "async"
-    plt.savefig(('./GridWorld_{}.png').format(fig_name))
+    # sync part
+    for (i, j), val in np.ndenumerate(sync_v):
+        tb_sync.add_cell(i, j, width, height, text=val,
+                    loc='center', facecolor='white')
+
+    # row and column labels
+    for i in range(len(sync_v)):
+        tb_sync.add_cell(i, -1, width, height, text=i+1, loc='right',
+                    edgecolor='none', facecolor='none')
+        tb_sync.add_cell(-1, i, width, height/2, text=i+1, loc='center',
+                    edgecolor='none', facecolor='none')
+    ax_sync.add_table(tb_sync)
+
+    plt.savefig('./GridWorld_.png')
     plt.close()
+
 
 def compute_state_value(in_place=True, discount=1.0, iter_count=1000):
     new_state_values = np.zeros((WORLD_SIZE, WORLD_SIZE))
@@ -88,8 +104,7 @@ def run():
     async_values, async_iteration = compute_state_value(in_place=True)
     sync_values, sync_iteration = compute_state_value(in_place=False)
 
-    draw_image(np.round(async_values, decimals=0), sync=False)
-    draw_image(np.round(sync_values, decimals=0), sync=True)
+    draw_multi(np.round(sync_values, decimals=0), np.round(async_values, decimals=0))
 
     print('Asynchronous(in-place): {} iterations'.format(async_iteration))
     print('Synchronous(out-of-place): {} iterations'.format(sync_iteration))
