@@ -29,13 +29,13 @@ def step(state, action):
     return next_state, reward
 
 def draw_multi(async_v, sync_v):
-    fig = plt.figure(figsize=(20, 4))
+    fig = plt.figure(figsize=(20, 5))
     ax_async = fig.add_subplot(121)
     ax_sync = fig.add_subplot(122)
     ax_async.set_axis_off()
     ax_sync.set_axis_off()
-    ax_async.set_title("Asynchronous")
-    ax_sync.set_title("Synchronous")
+    ax_async.set_title("Asynchronous", pad=30)
+    ax_sync.set_title("Synchronous", pad=30)
 
     tb_async = Table(ax_async, bbox=[0, 0, 1, 1])
     tb_sync = Table(ax_sync, bbox=[0, 0, 1, 1])
