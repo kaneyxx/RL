@@ -104,7 +104,7 @@ def run():
     async_values, async_iteration = compute_state_value(in_place=True)
     sync_values, sync_iteration = compute_state_value(in_place=False)
 
-    draw_multi(np.round(sync_values, decimals=0), np.round(async_values, decimals=0))
+    draw_multi(np.round(async_values, decimals=0), np.round(sync_values, decimals=0))
 
     print('Asynchronous(in-place): {} iterations'.format(async_iteration))
     print('Synchronous(out-of-place): {} iterations'.format(sync_iteration))
