@@ -5,22 +5,10 @@ import argparse
 import gym
 import matplotlib.pyplot as plt
 from plot import plot
-
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--env', type=str, required=True, help='environment_name = FrozenLake, CliffWalking or GridWorld')
-parser.add_argument('--agent', type=str, default="Q-Learning", help='agent_name = Q-Learning, Sarsa')
-parser.add_argument('--episode', default=1000, type=int, help='episodes')
-parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
-parser.add_argument('--gamma', default=0.9, type=float, help='discount rate')
-parser.add_argument('--epsilon', default=0.1, type=float, help='epsilon')
-parser.add_argument('--slippery', default=False, type=bool, help='slippery')
-parser.add_argument('--render', default=False, action="store_true", help='render')
-
+import warnings
 
 def main():
     args = parser.parse_args()
-    print(args)
 
     # make env
     if args.env == 'FrozenLake':
@@ -59,25 +47,40 @@ def main():
             learning_rate=args.lr,
             gamma=args.gamma,
             e_greed=args.epsilon)
-
-    # learning phase
-    global_steps = []
-    global_rewards = []
-    is_render = args.render
-    for episode in range(args.episode):
-        episode += 1
-        ep_reward, ep_steps = run_episode(env, agent, is_render)
-        global_steps.append(ep_steps)
-        global_rewards.append(ep_reward)
-        print('Episode %s: steps = %s , reward = %.1f' % (episode, ep_steps, ep_reward))
     
-    # plotting
-    episode = [i for i in range(0, args.episode)]
-    plot(episode=episode, steps=global_steps, rewards=global_rewards, env=envName)
-    agent.save(env_name=envName)
-
-    # testing
-    test_episode(env, agent)
+    if args.test == None:
+        # learning phase
+        global_steps = []
+        global_rewards = []
+        is_render = args.render
+        for episode in range(args.episode):
+            episode += 1
+            ep_reward, ep_steps = run_episode(env, agent, is_render)
+            global_steps.append(ep_steps)
+            global_rewards.append(ep_reward)
+            print('Episode %s: steps = %s , reward = %.1f' % (episode, ep_steps, ep_reward))
+        
+        # plotting
+        episode = [i for i in range(0, args.episode)]
+        plot(episode=episode, steps=global_steps, rewards=global_rewards, env=envName)
+        agent.save(env_name=envName)
+        
+        # testing phase
+        test_episode(env, agent)
+    else:
+        agent.restore(npy_file=args.test)
+        test_episode(env, agent)
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--env', type=str, required=True, help='environment_name = FrozenLake, CliffWalking or GridWorld')
+    parser.add_argument('--agent', type=str, default="Q-Learning", help='agent_name = Q-Learning, Sarsa')
+    parser.add_argument('--episode', default=1000, type=int, help='episodes')
+    parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
+    parser.add_argument('--gamma', default=0.9, type=float, help='discount rate')
+    parser.add_argument('--epsilon', default=0.1, type=float, help='epsilon')
+    parser.add_argument('--slippery', default=False, type=bool, help='slippery')
+    parser.add_argument('--render', default=False, action="store_true", help='render')
+    parser.add_argument('--test', type=str, default=None, help="only for testing, input=Q-Table npy file path")
+
     main()

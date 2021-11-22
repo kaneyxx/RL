@@ -1,6 +1,6 @@
 import gym
 from env import CliffWalkingWrapper, FrozenLakeWapper, GridWorld
-from agent import QLearningAgent
+from agent import QLearningAgent, SarsaAgent
 import time
 
 def run_episode(env, agent, render=False):
@@ -45,4 +45,18 @@ def test_episode(env, agent):
         if done:
             print('test steps = %s, reward = %.1f' % (total_steps, total_reward))
             break
-        
+
+if __name__ == "__main__":
+    
+    # for testing presentation
+    envName = "CliffWalking"
+    env = gym.make("CliffWalking-v0")  # 0 up, 1 right, 2 down, 3 left
+    env = CliffWalkingWrapper(env)
+    agent = SarsaAgent(
+            obs_n=env.observation_space.n,
+            act_n=env.action_space.n,
+            learning_rate=0.01,
+            gamma=0.9,
+            e_greed=0.1)
+    agent.restore(npy_file="./qtable_CliffWalking.npy")
+    test_episode(env, agent)
