@@ -44,8 +44,7 @@ class QLearningAgent(object):
         if done:
             target_Q = reward  # achieve the goal
         else:
-            target_Q = reward + self.gamma * np.max(
-                self.Q[next_obs, :])  # Q-learning
+            target_Q = reward + self.gamma * np.max(self.Q[next_obs, :])  # Q-learning
         self.Q[obs, action] += self.lr * (target_Q - predict_Q)  # modify q
 
     # save Q-table to numpy file
@@ -115,8 +114,7 @@ class SarsaAgent(object):
         if done:
             target_Q = reward  # achieve the goal
         else:
-            target_Q = reward + self.gamma * self.Q[next_obs,
-                                                    next_action]  # Sarsa
+            target_Q = reward + self.gamma * self.Q[next_obs, next_action]  # Sarsa
         self.Q[obs, action] += self.lr * (target_Q - predict_Q)  # modify Q
 
     # save Q-table to numpy file
