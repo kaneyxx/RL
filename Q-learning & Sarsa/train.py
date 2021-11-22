@@ -13,9 +13,10 @@ def run_episode(env, agent, render=False):
         
         action = agent.sample(obs)  # pick an action
         next_obs, reward, done, _ = env.step(action)  # interact with env
+        next_action = agent.sample(next_obs) # for Sarsa
         
         # training
-        agent.learn(obs, action, reward, next_obs, done)
+        agent.learn(obs, action, reward, next_obs, next_action, done)
 
         obs = next_obs  # store observation
         total_reward += reward

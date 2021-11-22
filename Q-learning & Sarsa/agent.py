@@ -31,7 +31,7 @@ class QLearningAgent(object):
         return action
 
     # learning algorithm (Q-table)
-    def learn(self, obs, action, reward, next_obs, done):
+    def learn(self, obs, action, reward, next_obs, next_action, done):
         """ 
         off-policy
         obs: observation before interaction, s_t
