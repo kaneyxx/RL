@@ -3,10 +3,19 @@
 ### Q-learning & Sarsa
 <br/> 
 
-Example:
+Command:
 ```python
 python main.py [--parameters]
 ```
+Example 1 (Training):
+```python
+python main.py --env "CliffWalking" --agent "Sarsa" --episode 500 --render
+```
+Example 2 (Testing):
+```python
+python main.py --env "CliffWalking" --agent "Sarsa" --test "./qtable_CliffWalking_Sarsa.npy"
+```
+
 <br/>  
 
 Parameters:
@@ -18,3 +27,4 @@ Parameters:
 * epsilon : Low prob. for random action to make sure you will not only pick one action
 * slippery : Only for FrozenLake and GridWorld env, default = False
 * render : There will be a window show up if True, default = False
+* test : Test on specific table file (input file path), default = None
