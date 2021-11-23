@@ -58,7 +58,7 @@ def main():
             ep_reward, ep_steps = run_episode(env, agent, is_render)
             global_steps.append(ep_steps)
             global_rewards.append(ep_reward)
-            print('Episode %s: steps = %s , reward = %.1f' % (episode, ep_steps, ep_reward))
+            print(f'Episode {episode:s}: steps = {ep_steps:s} , reward = {ep_reward:.1f}')
         
         # plotting
         episode = [i for i in range(0, args.episode)]
