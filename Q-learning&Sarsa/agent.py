@@ -82,7 +82,7 @@ class SarsaAgent(object):
         self.gamma = gamma  # reward discount rate
         self.epsilon = e_greed  # low prob. for random actions
         self.Q = np.zeros((obs_n, act_n))
-
+         
     # sample action while training
     def sample(self, obs):
         if np.random.uniform(0, 1) < (1.0 - self.epsilon):  # pick action based on table
