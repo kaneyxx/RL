@@ -52,7 +52,7 @@ if __name__ == "__main__":
     envName = "CliffWalking"
     env = gym.make("CliffWalking-v0")  # 0 up, 1 right, 2 down, 3 left
     env = CliffWalkingWrapper(env)
-    agent = SarsaAgent(
+    agent = Agent(
             obs_n=env.observation_space.n,
             act_n=env.action_space.n,
             learning_rate=0.01,

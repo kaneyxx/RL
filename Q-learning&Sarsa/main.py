@@ -73,7 +73,11 @@ def main():
         
         # plotting
         episode = [i for i in range(0, args.episode)]
-        plot(episode=episode, steps=global_steps, rewards=global_rewards, env=envName)
+        plot(episode=episode, 
+            steps=global_steps, 
+            rewards=global_rewards, 
+            env=envName, 
+            agent=args.agent)
         agent.save(env_name=envName)
         
         # testing phase

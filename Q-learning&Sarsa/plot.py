@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-def plot(episode, steps, rewards, env):
+def plot(episode, steps, rewards, env, agent):
     plt.figure(figsize=(15,10),dpi=100,linewidth = 2)
     
     plt.plot(episode, steps, '-', color = 'r', label="steps")
@@ -13,4 +13,4 @@ def plot(episode, steps, rewards, env):
     plt.xlabel("episode", fontsize=30, labelpad = 15)
     plt.legend(loc = "best", fontsize=20)
 
-    plt.savefig("train_{}.jpg".format(env))
+    plt.savefig("{}_{}.jpg".format(env, agent))
