@@ -1,5 +1,5 @@
 from env import CliffWalkingWrapper, FrozenLakeWapper, GridWorld
-from agent import QLearningAgent, SarsaAgent
+from agent import QLearningAgent, SarsaAgent, SarsaLambdaAgent
 from train import run_episode, test_episode
 import argparse
 import gym
@@ -47,6 +47,14 @@ def main():
             learning_rate=args.lr,
             gamma=args.gamma,
             e_greed=args.epsilon)
+    elif args.agent == "SarsaLambda":
+        agent = SarsaLambdaAgent(
+            obs_n=env.observation_space.n,
+            act_n=env.action_space.n,
+            learning_rate=args.lr,
+            gamma=args.gamma,
+            lambda_=args.lambda_,
+            e_greed=args.epsilon)
     
     if args.test == None:
         # learning phase
@@ -78,6 +86,7 @@ if __name__ == "__main__":
     parser.add_argument('--episode', default=1000, type=int, help='episodes')
     parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
     parser.add_argument('--gamma', default=0.9, type=float, help='discount rate')
+    parser.add_argument('--lambda_', default=0.9, type=float, help='eligibility trace')
     parser.add_argument('--epsilon', default=0.1, type=float, help='epsilon')
     parser.add_argument('--slippery', default=False, type=bool, help='slippery')
     parser.add_argument('--render', default=False, action="store_true", help='render')
