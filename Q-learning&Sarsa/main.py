@@ -1,5 +1,5 @@
 from env import CliffWalkingWrapper, FrozenLakeWapper, GridWorld
-from agent import QLearningAgent, SarsaAgent, SarsaLambdaAgent
+from agent import Agent
 from train import run_episode, test_episode
 import argparse
 import gym
@@ -34,21 +34,24 @@ def main():
     
     # init agent
     if args.agent == "Q-Learning":
-        agent = QLearningAgent(
+        agent = Agent(
+            agent_name = args.agent,
             obs_n=env.observation_space.n,
             act_n=env.action_space.n,
             learning_rate=args.lr,
             gamma=args.gamma,
             e_greed=args.epsilon)
     elif args.agent == "Sarsa":
-        agent = SarsaAgent(
+        agent = Agent(
+            agent_name = args.agent,
             obs_n=env.observation_space.n,
             act_n=env.action_space.n,
             learning_rate=args.lr,
             gamma=args.gamma,
             e_greed=args.epsilon)
     elif args.agent == "SarsaLambda":
-        agent = SarsaLambdaAgent(
+        agent = Agent(
+            agent_name = args.agent,
             obs_n=env.observation_space.n,
             act_n=env.action_space.n,
             learning_rate=args.lr,

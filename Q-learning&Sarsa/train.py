@@ -1,6 +1,6 @@
 import gym
 from env import CliffWalkingWrapper, FrozenLakeWapper, GridWorld
-from agent import QLearningAgent, SarsaAgent
+from agent import Agent
 import time
 
 def run_episode(env, agent, render=False):
