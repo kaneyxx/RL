@@ -99,7 +99,7 @@ class Agent(object):
             print(npy_file + ' saved.')
             
         else:
-            npy_file = '{}_{}.npy'.format(self.agent_name, env_name)
+            npy_file = '{}_{}.npy'.format(env_name, self.agent_name)
             np.save(npy_file, self.Q)
             print(npy_file + ' saved.')
 
