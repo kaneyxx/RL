@@ -60,7 +60,8 @@ def run_episode(agent, env, n_episodes, render):
             agent.save()
             print("Ran {} episodes and solved the problem!".format(episode+1))
             break
-    print("Didn't solve this problem after 1000 episodes :(")
+        if episode+1 % n_episodes == 0:
+            print("Didn't solve this problem after 1000 episodes :(")
     env.close()
 
 
