@@ -4,9 +4,11 @@ import torch.nn.functional as F
 class ValueNet(nn.Module):
     def __init__(self, n_states, n_actions):
         super(ValueNet, self).__init__()
-        self.fc1 = nn.Linear(in_features=n_states, out_features=24, bias=False)
-        self.fc2 = nn.Linear(in_features=24, out_features=48, bias=False)
-        self.fc3 = nn.Linear(in_features=48, out_features=n_actions, bias=False)
+        self.fc1 = nn.Linear(in_features=n_states, out_features=256)
+        self.fc2 = nn.Linear(in_features=256, out_features=128)
+        self.fc3 = nn.Linear(in_features=128, out_features=64)
+        self.fc4 = nn.Linear(in_features=64, out_features=n_actions)
+        # self._create_weights()
     
     # def _create_weights(self):
     #     for m in self.modules():
@@ -17,7 +19,8 @@ class ValueNet(nn.Module):
     def forward(self, x):
         h1 = F.relu(self.fc1(x))
         h2 = F.relu(self.fc2(h1))
-        Q = self.fc3(h2)
+        h3 = F.relu(self.fc3(h2))
+        Q = self.fc4(h3)
         # return q-value for each action
         return Q
 

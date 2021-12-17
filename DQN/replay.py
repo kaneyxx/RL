@@ -1,5 +1,6 @@
 import random
 import numpy as np
+import torch
 from collections import deque
 
 class ExperienceReplay(object):
@@ -14,18 +15,18 @@ class ExperienceReplay(object):
         state_batch, action_batch, reward_batch, next_state_batch, done_batch = [], [], [], [], []
 
         for item in mini_batch:
-            s, a, r, n_s, d = item
+            s, a, r, n_s, d = item[0:4], item[4], item[5], item[6:10], item[10]
             state_batch.append(s)
             action_batch.append(a)
             reward_batch.append(r)
             next_state_batch.append(n_s)
             done_batch.append(d)
         
-        state_batch = np.array(state_batch).astype("float32")
-        action_batch = np.array(action_batch).astype("float32")
-        reward_batch = np.array(reward_batch).astype("float32")
-        next_state_batch = np.array(next_state_batch).astype("float32")
-        done_batch = np.array(done_batch).astype("float32")
+        state_batch = torch.FloatTensor(np.array(state_batch).astype("float32")).view(batch_size, -1)
+        action_batch = torch.LongTensor(np.array(action_batch).astype("float32")).view(batch_size, -1)
+        reward_batch = torch.FloatTensor(np.array(reward_batch).astype("float32")).view(batch_size, -1)
+        next_state_batch = torch.FloatTensor(np.array(next_state_batch).astype("float32")).view(batch_size, -1)
+        done_batch = torch.FloatTensor(np.array(done_batch).astype("float32")).view(batch_size, -1)
         
         return state_batch, action_batch, reward_batch, next_state_batch, done_batch
     
