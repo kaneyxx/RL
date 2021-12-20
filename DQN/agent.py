@@ -55,6 +55,7 @@ class DQN():
         return action
 
     def predict(self, states):
+        self.target_net.eval()
         x = torch.unsqueeze(torch.FloatTensor(states), 0)
         with torch.no_grad():
             actions_value = self.target_net(x)
@@ -71,6 +72,7 @@ class DQN():
     def learn(self):
         self.eval_net.to("cpu")
         self.target_net.to("cpu")
+        self.target_net.eval()
 
         # sample batch_size experiences
         state_batch, action_batch, reward_batch, next_state_batch, terminal_batch = self.memory.sample(self.batch_size)
