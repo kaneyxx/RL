@@ -1,7 +1,7 @@
 # RL
 
 ## About
-This repo tries to implement reinforcement learning algorithms after studying the theories.
+This repo tries to implement reinforcement learning algorithms
 
 ### <Q-learning & Sarsa>
 <br/> 
