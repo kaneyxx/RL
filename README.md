@@ -1,6 +1,9 @@
 # RL
 
-### Q-learning & Sarsa
+## About
+This repo tries to implement reinforcement learning algorithms after studying the theories.
+
+### <Q-learning & Sarsa>
 <br/> 
 
 Command:
@@ -30,7 +33,7 @@ Parameters:
 * render : There will be a window show up if True, default = False
 * test : Test on specific table file (input file path), default = None
 
-### Deep Q Network (DQN)
+### <Deep Q Network (DQN)>
 <br/> 
 
 Command:
@@ -53,7 +56,7 @@ python main.py --test "./dqn.pth" --render
 <br/>  
 
 Parameters:
-* env : 'CartPole-v0'
+* env : 'CartPole-v0', 'CartPole-v1'
 * replay : Experience replay storage capacity
 * episodes : Episodes you want the agent to learn
 * batch_size : Sampled batch size for each step

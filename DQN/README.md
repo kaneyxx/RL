@@ -21,7 +21,7 @@ python main.py --test "./dqn.pth" --render
 <br/>  
 
 Parameters:
-* env : 'CartPole-v0'
+* env : 'CartPole-v0', 'CartPole-v1'
 * replay : Experience replay storage capacity
 * episodes : Episodes you want the agent to learn
 * batch_size : Sampled batch size for each step
