@@ -6,6 +6,17 @@ This repo tries to implement reinforcement learning algorithms
 ### <Q-learning & Sarsa>
 <br/> 
 
+Build up environment
+```
+pip install setuptools==65.5.0 "wheel<0.40.0"
+```
+
+Then,
+```
+pip install -r requirements.txt
+```
+
+
 Command:
 ```python
 python main.py [--parameters]
