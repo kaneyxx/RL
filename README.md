@@ -1,9 +1,13 @@
 # RL
 
 ## About
-This repo tries to implement reinforcement learning algorithms
+This repo aims to practice implementing reinforcement learning algorithms
 
 Build up environment
+```
+conda create -n rl python=3.9
+```
+Install some dependencies
 ```
 pip install setuptools==65.5.0 "wheel<0.40.0"
 ```
